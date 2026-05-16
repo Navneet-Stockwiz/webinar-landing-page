@@ -8,7 +8,6 @@ import phonenew from "../assets/svg/phonenew.svg";
 import vector from "../assets/webp/vector.webp";
 import video from "../assets/webp/video2.webp";
 import { useNavigate } from "react-router-dom";
-import DigioKYCModal from "../components/Digio/DigioKYCModal";
 
 const PRODBASEURL = "https://api.stockwiz.in/api/v2";
 const DEVBASEURL = "https://api.stockwiz.in/api/v2";
@@ -166,7 +165,7 @@ const Signin = () => {
       const kycData = await kycRes.json();
 
       if (kycData?.status && kycData?.data === true) {
-        window.location.href = "https://strykex.stockwiz.in/dashboard";
+        window.location.href = "https://strykex.stockwiz.in/home";
       } else {
         setShowKYCModal(true);
       }
@@ -179,7 +178,7 @@ const Signin = () => {
   };
 
   const handleKYCSuccess = () => {
-    window.location.href = "https://strykex.stockwiz.in/dashboard";
+    window.location.href = "https://strykex.stockwiz.in/home";
   };
 
   const handleKYCError = (error) => {
@@ -200,14 +199,6 @@ const Signin = () => {
       </Snackbar>
 
 
-      <DigioKYCModal
-        mobileNumber={mobile}
-        open={showKYCModal}
-        onClose={() => setShowKYCModal(false)}
-        onSuccess={handleKYCSuccess}
-        onError={handleKYCError}
-        onCancel={() => setShowKYCModal(false)}
-      />
 
 
       {kycLoading && (
@@ -357,7 +348,7 @@ const Signin = () => {
 
             <p className="text-[18px] text-[#969696] text-center">
               Need assistance?{" "}
-              <a href="https://api.whatsapp.com/send?phone=918905939199&text=Hello%2C%20I%20just%20visited%20your%20website%2C%20I%20am%20interested%20in%20joining%20the%20webinar.%20Please%20share%20the%20webinar%20joining%20details.%20Stockwiz%20https%3A%2F%2Falgo.stockwiz.in%2F" target="_blank" className="text-[#367AFF] font-medium" rel="noreferrer">
+              <a href="https://api.whatsapp.com/send?phone=916350670245&text=I%20need%20assistance%20with%20StrykeX%2C%20please%20connect%20me%20to%20the%20support%20team" target="_blank" className="text-[#367AFF] font-medium" rel="noreferrer">
                 Contact Us
               </a>
             </p>
@@ -365,11 +356,11 @@ const Signin = () => {
 
 
           <div className="absolute bottom-0 flex flex-wrap justify-center gap-4 items-center text-xs text-gray-500 mb-4">
-            <a href="tel:+918065919278" className="flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+            <a href="tel:+917850934748" className="flex items-center gap-1" target="_blank" rel="noopener noreferrer">
               <span>
                 <img src={phonenew} alt="phone" />
               </span>
-              <span className="text-[14px] text-[#000000] font-normal leading-[150%]">+91 - 8065919278</span>
+              <span className="text-[14px] text-[#000000] font-normal leading-[150%]">+91-7850934748</span>
             </a>
 
 
@@ -381,17 +372,11 @@ const Signin = () => {
             </a>
 
 
-            <a href="https://wa.me/918905939199?text=Hello%2C%20I%20just%20visited%20your%20website%2C%20I%20am%20interested%20in%20joining%20the%20webinar.%20Please%20share%20the%20webinar%20joining%20details.%20Stockwiz%20https%3A%2F%2Falgo.stockwiz.in%2F" className="flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/+916350670245" className="flex items-center gap-1" target="_blank" rel="noopener noreferrer">
               <span>
                 <img src={whatsappnew} alt="whatsapp" />
               </span>
-              <span className="text-[14px] text-[#000000] font-normal leading-[150%]">+91 - 8905939199</span>
-            </a>
-            <a href="https://wa.me/917850934748?text=Hello%2C%20I%20just%20visited%20your%20website%2C%20I%20am%20interested%20in%20joining%20the%20webinar.%20Please%20share%20the%20webinar%20joining%20details.%20Stockwiz%20https%3A%2F%2Falgo.stockwiz.in%2F" className="flex items-center gap-1" target="_blank" rel="noopener noreferrer">
-              <span>
-                <img src={whatsappnew} alt="whatsapp" />
-              </span>
-              <span className="text-[14px] text-[#000000] font-normal leading-[150%]">+91 - 7850934748</span>
+              <span className="text-[14px] text-[#000000] font-normal leading-[150%]">+91-6350670245</span>
             </a>
           </div>
         </div>
@@ -519,7 +504,7 @@ const Signin = () => {
 
               <p className="text-[14px] text-[#969696] text-center">
                 Need assistance?{" "}
-                <a href="https://api.whatsapp.com/send?phone=918905939199&text=Hello%2C%20I%20just%20visited%20your%20website%2C%20I%20am%20interested%20in%20joining%20the%20webinar.%20Please%20share%20the%20webinar%20joining%20details.%20Stockwiz%20https%3A%2F%2Falgo.stockwiz.in%2F" target="_blank" className="text-[#367AFF] font-medium" rel="noreferrer">
+                <a href="https://api.whatsapp.com/send?phone=916350670245&text=I%20need%20assistance%20with%20StrykeX%2C%20please%20connect%20me%20to%20the%20support%20team" target="_blank" className="text-[#367AFF] font-medium" rel="noreferrer">
                   Contact Us
                 </a>
               </p>
@@ -527,21 +512,17 @@ const Signin = () => {
 
               <div className="flex flex-col justify-center items-center gap-2 mt-6 text-sm text-[#000000]">
                 <div className="flex flex-col justify-start items-start gap-4">
-                  <a href="tel:+918065919278" className="flex items-center gap-2" target="_blank" rel="noopener noreferrer">
+                  <a href="tel:+917850934748" className="flex items-center gap-2" target="_blank" rel="noopener noreferrer">
                     <img src={phonenew} alt="phone" />
-                    <span>+91 - 8065919278</span>
+                    <span>+91-7850934748</span>
                   </a>
                   <a href="mailto:help@stockwiz.in" className="flex items-center gap-2" target="_blank" rel="noopener noreferrer">
                     <img src={mailnew} alt="mail" />
                     <span>help@stockwiz.in</span>
                   </a>
-                  <a href="https://wa.me/918905939199?text=Hello%2C%20I%20just%20visited%20your%20website%2C%20I%20am%20interested%20in%20joining%20the%20webinar.%20Please%20share%20the%20webinar%20joining%20details.%20Stockwiz%20https%3A%2F%2Falgo.stockwiz.in%2F" className="flex items-center gap-2" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/+916350670245" className="flex items-center gap-2" target="_blank" rel="noopener noreferrer">
                     <img src={whatsappnew} alt="whatsapp" />
-                    <span>+91 - 8905939199</span>
-                  </a>
-                  <a href="https://wa.me/917850934748?text=Hello%2C%20I%20just%20visited%20your%20website%2C%20I%20am%20interested%20in%20joining%20the%20webinar.%20Please%20share%20the%20webinar%20joining%20details.%20Stockwiz%20https%3A%2F%2Falgo.stockwiz.in%2F" className="flex items-center gap-2" target="_blank" rel="noopener noreferrer">
-                    <img src={whatsappnew} alt="whatsapp" />
-                    <span>+91 - 7850934748</span>
+                    <span>+91-6350670245</span>
                   </a>
                 </div>
               </div>

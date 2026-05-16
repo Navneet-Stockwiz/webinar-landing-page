@@ -24,7 +24,6 @@ import ellipsedhan1 from "../assets/webp/ellipse1dhan.webp";
 import dhanallcard from "../assets/webp/dhanallcard.webp";
 import dhanallcard1 from "../assets/webp/dhanallcard1.webp";
 import { CircularProgress } from "@mui/material";
-import DigioKYCModal from "../components/Digio/DigioKYCModal";
 
 const categories = [
   { icon: stocks, label: "Stocks" },
@@ -74,7 +73,7 @@ export default function DhanUI() {
       const data = await response.json();
 
       if (data?.status && data?.data === true) {
-        window.location.href = "https://strykex.stockwiz.in/dashboard";
+        window.location.href = "https://strykex.stockwiz.in/home";
       } else {
         setMobileNumber(mobile);
         setKycMessage(data?.message || "Please complete KYC verification");
@@ -96,11 +95,11 @@ export default function DhanUI() {
       if (storedMobile) {
         await checkKYCStatus(storedMobile);
       } else {
-        window.open("https://strykex.stockwiz.in/dashboard", "_blank");
+        window.open("https://strykex.stockwiz.in/home", "_blank");
       }
     } catch (error) {
       console.error("Account Check Error:", error);
-      window.open("https://strykex.stockwiz.in/dashboard", "_blank");
+      window.open("https://strykex.stockwiz.in/home", "_blank");
     }
   };
 
@@ -134,18 +133,6 @@ export default function DhanUI() {
         </div>
       )}
 
-      <DigioKYCModal
-        mobileNumber={mobileNumber}
-        open={showKYCModal}
-        onClose={() => setShowKYCModal(false)}
-        onSuccess={() =>
-          (window.location.href = "https://strykex.stockwiz.in/dashboard")
-        }
-        onError={(error) => {
-          console.error("KYC Error:", error);
-          setKycMessage(error.message || "KYC process failed");
-        }}
-      />
 
       <header className="flex justify-between items-center md:mb-16 mb-4 md:px-20">
         <div className="flex items-center md:space-x-3">

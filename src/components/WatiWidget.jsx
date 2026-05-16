@@ -36,7 +36,7 @@ export default function WatiWidget() {
           ctaText: "Chat With Us",
           borderRadius: "25",
           autoShow: false,
-          phoneNumber: "918905939199",
+          phoneNumber: "916350670245",
         },
       };
 

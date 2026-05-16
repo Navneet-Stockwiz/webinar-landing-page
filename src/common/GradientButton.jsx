@@ -1,12 +1,10 @@
 import React from "react";
 import arrow from "../assets/svg/arrow.svg";
-import { usePaymentDialog } from "../hooks/PaymentDialogContext";
 
 const GradientButton = ({ className = "", ...props }) => {
-  const { openPaymentDialog } = usePaymentDialog();
   return (
     <button
-      onClick={openPaymentDialog}
+      onClick={() => {}}
       className={`md:flex hidden w-[310px] font-semibold text-[16px] leading-[120%] justify-center items-center gap-4 text-white p-4 rounded-[12px] border-none ${className}`}
       style={{
         background: `

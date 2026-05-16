@@ -21,7 +21,7 @@ const PaymentPage = () => {
     name: "",
     email: "",
     contact: "",
-    amount: "79999",
+    amount: "23999",
   });
   const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({
@@ -67,7 +67,7 @@ const PaymentPage = () => {
             email,
             contact,
             amount: parseInt(amount, 10),
-            source: "algo.stockwiz.in",
+            source:"ai.stockwiz.in"
           }),
         }
       );
@@ -126,7 +126,7 @@ const PaymentPage = () => {
             m: "auto",
             bgcolor: "#fff",
             px: { xs: 3, sm: 4 },
-            py: { xs: 3, sm: 4 },
+            py: { xs: 3, sm: 4 }, 
             borderRadius: 3,
             width: "90%",
             maxWidth: 400,
@@ -193,7 +193,7 @@ const PaymentPage = () => {
             disabled={loading}
             sx={{
               background: "linear-gradient(to right,#3F72FF,#0036B2,#47B4B4)",
-              borderRadius: 1,
+              borderRadius: 1, 
               py: 1.5,
               fontWeight: "bold",
               textTransform: "none",

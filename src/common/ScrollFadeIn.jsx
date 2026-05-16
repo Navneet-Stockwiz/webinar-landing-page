@@ -32,7 +32,7 @@ export const AnimateFromLeftOnLoad = ({ children, delay = 0 }) => (
   >
     {children}
   </motion.div>
-);
+); 
 
 export const AnimateFromRightOnLoad = ({ children, delay = 0 }) => (
   <motion.div
@@ -49,7 +49,7 @@ export const AnimateFromInsideOnLoad = ({ children, delay = 0 }) => (
     initial={{ opacity: 0, scale: 0.8 }}
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.6, delay }}
-  >
+  > 
     {children}
   </motion.div>
 );

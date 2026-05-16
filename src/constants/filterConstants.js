@@ -35,13 +35,6 @@ export const DIRECTIONS = [
     icon: "bearish",
     color: "red",
   },
-  {
-    id: "multi",
-    label: "Multi",
-    value: "multi",
-    icon: "multi",
-    color: "blue",
-  },
 ];
 
 // Default filter values

@@ -2,13 +2,12 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { TextField, Snackbar, Alert, CircularProgress } from "@mui/material";
 import OtpInput from "react-otp-input";
-import DigioSigner from "../components/Digio/DigioSigner";
 import whatsappnew from "../assets/svg/whatsappnew.svg";
 import mailnew from "../assets/svg/mailnew.svg";
 import phonenew from "../assets/svg/phonenew.svg";
 
 const PRODBASEURL = "https://api.stockwiz.in/api/v2";
-// const LOCALBASEURL = "http://localhost:8000/api/v2";
+const LOCALBASEURL = "http://localhost:8000/api/v2";
 
 const StrykeXDesktopAuth = () => {
   const [step, setStep] = useState("mobile");
@@ -22,7 +21,6 @@ const StrykeXDesktopAuth = () => {
   const [kycLoading, setKycLoading] = useState(false);
   const [kycData, setKycData] = useState(null);
   const [kycError, setKycError] = useState(null);
-  const signerRef = useRef(null);
 
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -90,7 +88,7 @@ const StrykeXDesktopAuth = () => {
           "api-key":
             "KsVJNMSeLQjzsxtWvU5NjtaxsMUBLADb0w90jPEMpTv0PHrqX9qBaIXPUBQz8q2o",
         },
-        body: JSON.stringify({ mobile_number: mobile, source: "kyc" }),
+        body: JSON.stringify({ mobile_number: mobile }),
       });
 
       const response = await res.json();
@@ -178,9 +176,8 @@ const StrykeXDesktopAuth = () => {
       const kycData = await kycRes.json();
 
       if (kycData?.status && kycData?.data === true) {
-        // KYC complete → redirect to payment page
-        const normalized = mobile.replace(/^\+91/, "");
-        window.location.href = `/payoners?mobile_number=${encodeURIComponent(normalized)}`;
+        // KYC complete → go home
+        window.location.href = "https://strykex.stockwiz.in/dashboard";
         return;
       }
 
@@ -230,60 +227,10 @@ const StrykeXDesktopAuth = () => {
     }
   };
 
-  const handleDigioSuccess = async () => {
-    try {
-      const updateRes = await fetch(
-        `${PRODBASEURL}/kyc/updateStrykexKycStatus`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            "api-key":
-              "KsVJNMSeLQjzsxtWvU5NjtaxsMUBLADb0w90jPEMpTv0PHrqX9qBaIXPUBQz8q2o",
-          },
-          body: JSON.stringify({ mobile_number: mobileForKyc }),
-        }
-      );
-      const verifyData = await updateRes.json();
 
-      if (verifyData?.status) {
-        // Fetch latest after update
-        const finalDetailsRes = await fetch(
-          `${PRODBASEURL}/kyc/getStrykexKycRequestDetails`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "api-key":
-                "KsVJNMSeLQjzsxtWvU5NjtaxsMUBLADb0w90jPEMpTv0PHrqX9qBaIXPUBQz8q2o",
-            },
-            body: JSON.stringify({ mobile_number: mobileForKyc }),
-          }
-        );
-        const finalDetailsData = await finalDetailsRes.json();
-
-        if (finalDetailsData?.status) {
-          // Redirect to payment page instead of dashboard
-          window.location.href = `/payoners?mobile_number=${encodeURIComponent(mobileForKyc)}`;
-        }
-      } else {
-        throw new Error(verifyData?.message || "KYC update failed");
-      }
-    } catch (err) {
-      setSnackbar({
-        open: true,
-        message: err?.message || "KYC update failed",
-        severity: "error",
-      });
-    }
-  };
-
-  const handleProceedESign = () => {
-    signerRef.current?.open();
-  };
 
   const proceedToApp = () => {
-    window.location.href = "https://strykex.stockwiz.in/dashboard";
+    window.location.href = "https://strykex.stockwiz.in/home";
   };
 
   // Reusable Inline KYC panel (desktop look)
@@ -352,32 +299,6 @@ const StrykeXDesktopAuth = () => {
           </span>
         </div>
       </div>
-      {kycData && (
-        <div style={{ height: 0, overflow: "hidden" }}>
-          <DigioSigner
-            ref={signerRef}
-            documentIds={[kycData.id]}
-            identifier={mobileForKyc}
-            environment="production"
-            accessToken={kycData.access_token?.id ?? kycData.access_token}
-            onSuccess={handleDigioSuccess}
-            onError={(e) =>
-              setSnackbar({
-                open: true,
-                message: e?.message || "eSign error",
-                severity: "error",
-              })
-            }
-            onCancel={() =>
-              setSnackbar({
-                open: true,
-                message: "eSign cancelled",
-                severity: "info",
-              })
-            }
-          />
-        </div>
-      )}
     </div>
   );
 
@@ -445,33 +366,6 @@ const StrykeXDesktopAuth = () => {
         </span>
       </div>
 
-      {/* Hidden DigioSigner mount */}
-      {kycData && (
-        <div style={{ height: 0, overflow: "hidden" }}>
-          <DigioSigner
-            ref={signerRef}
-            documentIds={[kycData.id]}
-            identifier={mobileForKyc}
-            environment="production"
-            accessToken={kycData.access_token?.id ?? kycData.access_token}
-            onSuccess={handleDigioSuccess}
-            onError={(e) =>
-              setSnackbar({
-                open: true,
-                message: e?.message || "eSign error",
-                severity: "error",
-              })
-            }
-            onCancel={() =>
-              setSnackbar({
-                open: true,
-                message: "eSign cancelled",
-                severity: "info",
-              })
-            }
-          />
-        </div>
-      )}
     </div>
   );
 
@@ -670,7 +564,7 @@ const StrykeXDesktopAuth = () => {
               <p className="text-[18px] text-[#969696] text-center">
                 Need assistance?{" "}
                 <a
-                  href="https://api.whatsapp.com/send?phone=918905939199&text=Hello%2C%20I%20just%20visited%20your%20website%2C%20I%20am%20interested%20in%20joining%20the%20webinar.%20Please%20share%20the%20webinar%20joining%20details.%20Stockwiz%20https%3A%2F%2Falgo.stockwiz.in%2F"
+                  href="https://api.whatsapp.com/send?phone=916350670245&text=I%20need%20assistance%20with%20StrykeX%2C%20please%20connect%20me%20to%20the%20support%20team"
                   target="_blank"
                   className="text-[#367AFF] font-medium"
                   rel="noreferrer"
@@ -844,7 +738,7 @@ const StrykeXDesktopAuth = () => {
               <p className="text-[14px] text-[#969696] text-center">
                 Need assistance?{" "}
                 <a
-                  href="https://api.whatsapp.com/send?phone=918905939199&text=Hello%2C%20I%20just%20visited%20your%20website%2C%20I%20am%20interested%20in%20joining%20the%20webinar.%20Please%20share%20the%20webinar%20joining%20details.%20Stockwiz%20https%3A%2F%2Falgo.stockwiz.in%2F"
+                  href="https://api.whatsapp.com/send?phone=916350670245&text=I%20need%20assistance%20with%20StrykeX%2C%20please%20connect%20me%20to%20the%20support%20team"
                   target="_blank"
                   className="text-[#367AFF] font-medium"
                   rel="noreferrer"
@@ -856,13 +750,13 @@ const StrykeXDesktopAuth = () => {
               <div className="flex flex-col justify-center items-center gap-2 mt-6 text-sm text-[#000000]">
                 <div className="flex flex-col justify-start items-start gap-4">
                   <a
-                    href="tel:+918065919278"
+                    href="tel:+917850934748"
                     className="flex items-center gap-2"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <img src={phonenew} alt="phone" />
-                    <span>+91 - 8065919278</span>
+                    <span>+91-7850934748</span>
                   </a>
                   <a
                     href="mailto:help@stockwiz.in"
@@ -874,22 +768,13 @@ const StrykeXDesktopAuth = () => {
                     <span>help@stockwiz.in</span>
                   </a>
                   <a
-                    href="https://wa.me/918905939199?text=Hello%2C%20I%20just%20visited%20your%20website%2C%20I%20am%20interested%20in%20joining%20the%20webinar.%20Please%20share%20the%20webinar%20joining%20details.%20Stockwiz%20https%3A%2F%2Falgo.stockwiz.in%2F"
+                    href="https://wa.me/+916350670245"
                     className="flex items-center gap-2"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <img src={whatsappnew} alt="whatsapp" />
-                    <span>+91 - 8905939199</span>
-                  </a>
-                  <a
-                    href="https://wa.me/917850934748?text=Hello%2C%20I%20just%20visited%20your%20website%2C%20I%20am%20interested%20in%20joining%20the%20webinar.%20Please%20share%20the%20webinar%20joining%20details.%20Stockwiz%20https%3A%2F%2Falgo.stockwiz.in%2F"
-                    className="flex items-center gap-2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img src={whatsappnew} alt="whatsapp" />
-                    <span>+91 - 7850934748</span>
+                    <span>+91-6350670245</span>
                   </a>
                 </div>
               </div>

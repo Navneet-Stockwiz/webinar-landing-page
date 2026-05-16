@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
 import MainLayout from "../layouts/MainLayout.jsx";
 import Hero from "../components/Hero.jsx";
-import Feature from "../components/Feature.jsx";
-import ExclusiveFeatures from "../components/ExclusiveFeatures.jsx";
-import StrykeXAdvantage from "../components/StrykeXAdvantage.jsx";
-import Works from "../components/Works.jsx";
-import Pricing from "../components/Pricing.jsx";
+import AILogoSection from "../components/AILogoSection.jsx";
+import WebinarHighlights from "../components/WebinarHighlights.jsx";
+import AlgoTradingBots from "../components/AlgoTradingBots.jsx";
 import Faq from "../components/Faq.jsx";
-import LightningFast from "../components/LightningFast.jsx";
+import ThreeMInutesVideo from "../components/ThreeMInutesVideo.jsx";
+import CompanyLogoMarquee from "../components/CompanyLogoMarquee.jsx";
+import WebinarBonus from "../components/WebinarBonus.jsx";
+import Coach from "../components/Coach.jsx";
+import Certified from "../components/Certified.jsx";
+import SuperTraders from "../components/SuperTraders.jsx";
+import Quotes from "../components/Quotes.jsx";
 
 const LandingPage = () => {
   return (
@@ -15,25 +19,39 @@ const LandingPage = () => {
       <div id="home">
         <Hero />
       </div>
-      <div id="features">
-        <Feature />
+      <div>
+        <AILogoSection />
       </div>
       <div>
-        <ExclusiveFeatures />
+        <ThreeMInutesVideo />
       </div>
       <div>
-        <StrykeXAdvantage />
+        <WebinarHighlights />
       </div>
       <div>
-        <Works />
+        <CompanyLogoMarquee />
       </div>
-      <div id="pricing">
-        <Pricing />
-      </div>
+        <div>
+          <AlgoTradingBots />
+        </div>
+        <div>
+          <WebinarBonus />
+        </div>
+        <div>
+          <Coach />
+        </div>
+        <div>
+          <Certified />
+        </div>
+        <div>
+          <Quotes />
+        </div>
+        <div>
+          <SuperTraders />
+        </div>
       <div>
         <Faq />
       </div>
-      <LightningFast />
     </MainLayout>
   );
 };
