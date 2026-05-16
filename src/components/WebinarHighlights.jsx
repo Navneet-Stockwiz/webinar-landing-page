@@ -12,7 +12,7 @@ import verifiedpl from "../assets/webp/verifiedpl.webp";
 
 const WebinarHighlights = () => {
   return (
-    <div className="bg-[#010611] text-white flex flex-col md:px-80 3xl:px-[450px] px-4 md:pt-28 pt-20 pb-8 md:gap-6 gap-4 w-full">
+    <div className="bg-[#010611] text-white flex flex-col md:px-80 3xl:px-[450px] px-4 pt-8 md:pt-12 pb-8 md:gap-6 gap-4 w-full">
       <AnimateFromInside>
         <p className="font-normal md:text-[64px] text-[32px] text-[#FFFFFF99] md:leading-[74px] leading-[36px] font-degular text-center">
           <span className="font-semibold text-white">Webinar Highlights</span> –

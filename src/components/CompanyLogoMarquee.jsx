@@ -44,7 +44,7 @@ const CompanyLogoMarquee = () => {
   const logos1 = [...logos, ...logos, ...logos, ...logos];
 
   return (
-    <div className="bg-[#010611] text-white flex flex-col items-center md:px-40 md:pt-16 pt-20 gap-6 w-full">
+    <div className="bg-[#010611] text-white flex flex-col items-center w-full px-4 md:px-80 3xl:px-[450px] pt-0 pb-8 md:pb-12 gap-6">
       <div className="flex flex-col md:gap-6 gap-4 justify-center items-center w-full md:py-5 py-2">
         <AnimateFromInside>
           <p className="text-center w-full font-medium md:text-[24px] text-[18px] leading-[28px]">

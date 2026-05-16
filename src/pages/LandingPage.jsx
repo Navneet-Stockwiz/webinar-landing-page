@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import MainLayout from "../layouts/MainLayout.jsx";
 import Hero from "../components/Hero.jsx";
 import AILogoSection from "../components/AILogoSection.jsx";
@@ -8,6 +8,7 @@ import Faq from "../components/Faq.jsx";
 import ThreeMInutesVideo from "../components/ThreeMInutesVideo.jsx";
 import CompanyLogoMarquee from "../components/CompanyLogoMarquee.jsx";
 import WebinarBonus from "../components/WebinarBonus.jsx";
+import ComplianceTrust from "../components/ComplianceTrust.jsx";
 import Coach from "../components/Coach.jsx";
 import Certified from "../components/Certified.jsx";
 import SuperTraders from "../components/SuperTraders.jsx";
@@ -26,29 +27,32 @@ const LandingPage = () => {
         <ThreeMInutesVideo />
       </div>
       <div>
+        <CompanyLogoMarquee />
+      </div>
+      <div>
         <WebinarHighlights />
       </div>
       <div>
-        <CompanyLogoMarquee />
+        <Coach />
       </div>
-        <div>
-          <AlgoTradingBots />
-        </div>
-        <div>
-          <WebinarBonus />
-        </div>
-        <div>
-          <Coach />
-        </div>
-        <div>
-          <Certified />
-        </div>
-        <div>
-          <Quotes />
-        </div>
-        <div>
-          <SuperTraders />
-        </div>
+      <div>
+        <AlgoTradingBots />
+      </div>
+      <div>
+        <WebinarBonus />
+      </div>
+      <div>
+        <ComplianceTrust />
+      </div>
+      <div>
+        <Certified />
+      </div>
+      <div>
+        <SuperTraders />
+      </div>
+      <div>
+        <Quotes />
+      </div>
       <div>
         <Faq />
       </div>

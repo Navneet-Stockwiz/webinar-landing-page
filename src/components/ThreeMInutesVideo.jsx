@@ -4,7 +4,7 @@ import CTAButton from "../common/CTAButton";
 
 const ThreeMInutesVideo = () => {
   return (
-    <div className="bg-[#010611] text-white flex flex-col items-center px-4 md:px-80 3xl:px-[450px] pt-20 pb-8 md:gap-6 gap-2 w-full">
+    <div className="bg-[#010611] text-white flex flex-col items-center px-4 md:px-80 3xl:px-[450px] pt-20 pb-12 md:pb-16 md:gap-6 gap-2 w-full">
       <AnimateFromInside>
         <p className="font-degular font-normal text-[32px] md:text-[64px] text-[#FFFFFF99] leading-[36px] md:leading-[72px] text-center">
           <span className="font-semibold text-white">

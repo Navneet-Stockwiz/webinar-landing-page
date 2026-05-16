@@ -182,7 +182,7 @@ const WebinarBonus = () => {
   );
 
   return (
-    <div className="bg-[#010611] text-white flex flex-col md:gap-6 gap-4 justify-center md:px-80 3xl:px-[450px] px-4 pt-20 md:pt-28 pb-8 w-full">
+    <div className="bg-[#010611] text-white flex flex-col md:gap-6 gap-4 justify-center md:px-80 3xl:px-[450px] px-4 pt-8 md:pt-12 pb-8 w-full">
       {/* Heading */}
       <AnimateFromInside>
         <h2 className="font-semibold md:text-[64px] text-[32px] md:leading-[72px] leading-[36px] font-degular text-center">
@@ -225,13 +225,10 @@ const WebinarBonus = () => {
         </div>
       </div>
       <AnimateFromInside>
-        <div className="flex justify-center items-center md:mt-0 mt-8">
+        <div className="flex justify-center items-center">
           <CTAButton />
         </div>
       </AnimateFromInside>
-      <p className="font-medium  md:font-poppins text-[14px] md:text-[20px] leading-[20px] md:leading-[30px] text-center">
-        Register today and unlock all the below mentioned bonuses worth ₹ 25,499
-      </p>
     </div>
   );
 };

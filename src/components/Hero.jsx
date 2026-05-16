@@ -198,7 +198,7 @@ const Hero = () => {
                 <img
                   src={heroVisual}
                   alt="StrykeX AI powered algo trading dashboard"
-                  className="relative left-16 w-full h-auto block"
+                  className="relative left-10 w-full h-auto block"
                   draggable={false}
                 />
               </div>
