@@ -445,7 +445,7 @@ const Footer = () => {
         </div>
       </div>
       <div
-        className="font-inter mx-auto gap-3 justify-between md:flex hidden items-center px-28 py-4 w-screen fixed z-20 bottom-0"
+        className="font-inter mx-auto gap-3 justify-between md:flex hidden items-center px-28 py-4 w-screen fixed z-50 bottom-0"
         style={{
           background:
             "linear-gradient(90.62deg, #007AFF 21.32%, #81F0FF 129.21%), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))",
@@ -486,7 +486,7 @@ const Footer = () => {
         </div>
       </div>
       <div
-        className="font-inter mx-auto justify-between md:hidden px-4 flex flex-col items-center md:px-28 py-2 w-screen fixed z-20 bottom-0 gap-4"
+        className="font-inter mx-auto justify-between md:hidden px-4 flex flex-col items-center md:px-28 py-2 w-screen fixed z-50 bottom-0 gap-4"
         style={{
           background:
             "linear-gradient(92.5deg, #0073F0 46.71%, #81F0FF 120.89%), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))",

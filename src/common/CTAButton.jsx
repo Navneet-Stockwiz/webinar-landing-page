@@ -6,7 +6,7 @@ import { useWebinar } from "../contexts/WebinarContext";
 import { useLanguage } from "../contexts/LanguageContext";
 import StrykeXPopupDialog from "../components/StrykeXPopupDialog";
 
-const CTAButton = () => {
+const CTAButton = ({ compact = false }) => {
   const { webinarData } = useWebinar();
   const { selectedLanguage, selectLanguage, clearLanguage } = useLanguage();
   const [showDialog, setShowDialog] = useState(false);
@@ -30,7 +30,9 @@ const CTAButton = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8 mt-0 md:mt-8">
+    <div
+      className={`flex flex-col items-center gap-4 ${compact ? "mt-0" : "md:flex-row md:items-start md:gap-8 mt-0 md:mt-8"}`}
+    >
       {/* Temporarily hidden Hindi Button - keeping code for later reuse */}
       {/*
       <div className="flex flex-col items-center">
@@ -163,7 +165,7 @@ const CTAButton = () => {
               ease: "easeInOut",
             }}
           >
-            Join Now (Register Now) - Free{" "}
+            Join Now ({compact ? "English" : "Register Now"}) - Free{" "}
             <span className="text-[#000000BF] text-[14px] font-medium line-through">₹499</span>
             <motion.div
               className="hidden md:flex items-center justify-center"
@@ -176,9 +178,11 @@ const CTAButton = () => {
             </motion.div>
           </motion.button>
         </motion.div>
-        <span className="font-medium text-[16px] leading-[28px] text-white text-center mt-2">
-          (Hurry Up! Limited Seats Only)
-        </span>
+        {!compact && (
+          <span className="font-medium text-[16px] leading-[28px] text-white text-center mt-2">
+            (Hurry Up! Limited Seats Only)
+          </span>
+        )}
       </div>
 
       {/* Dialog Component */}

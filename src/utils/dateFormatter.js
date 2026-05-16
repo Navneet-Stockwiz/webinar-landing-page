@@ -89,6 +89,25 @@ export const formatWebinarDateTimeDesktop = (dateTimeString) => {
 };
 
 /**
+ * Short batch label for hero: "Mon, 20 Apr • 8:00 PM IST"
+ */
+export const formatWebinarBatchDate = (dateTimeString) => {
+  if (!dateTimeString) {
+    return null;
+  }
+
+  try {
+    const date = dayjs(dateTimeString);
+    if (!date.isValid()) {
+      return null;
+    }
+    return `${date.format("ddd, DD MMM")} • ${date.format("h:mm A")} IST`;
+  } catch {
+    return null;
+  }
+};
+
+/**
  * Gets the formatted dates for both English and Hindi webinars
  * Returns an object with consistent formatting
  */

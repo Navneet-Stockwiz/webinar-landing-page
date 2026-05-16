@@ -115,8 +115,9 @@ export const AnimateFromRight = ({ children, delay = 0 }) => (
   </motion.div>
 );
 
-export const AnimateFromInside = ({ children, delay = 0 }) => (
+export const AnimateFromInside = ({ children, delay = 0, className = "" }) => (
   <motion.div
+    className={className}
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true, amount: 0.2 }}
