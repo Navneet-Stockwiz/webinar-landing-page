@@ -35,7 +35,7 @@ const Hero = () => {
       className="w-full flex items-center justify-center text-white bg-[#010611] md:p-4 3xl:p-8"
     >
       <div
-        className="relative flex flex-col w-full min-h-0 rounded-b-[24px] md:rounded-b-[48px] 3xl:rounded-b-[64px] bg-cover bg-center overflow-hidden"
+        className="relative flex flex-col w-full min-h-0 rounded-b-[24px] md:rounded-b-[48px] 3xl:rounded-b-[64px] bg-cover bg-center overflow-x-clip"
         style={{ backgroundImage: `url(${background})` }}
       >
         <Header />
@@ -134,21 +134,14 @@ const Hero = () => {
             </AnimateFromInside>
 
             <AnimateFromInside className={`${HERO_ANIMATE_WRAP} relative top-2`}>
-                <div
-                  className="inline-flex w-fit max-w-full items-stretch rounded-[11px] px-2 py-1.5 md:px-3 md:py-2"
-                  style={{
-                    background: "#FFFFFF12",
-                    border: "1px solid rgba(255, 255, 255, 0.12)",
-                    backdropFilter: "blur(12px)",
-                  }}
-                >
+                <div className="inline-flex w-fit max-w-full items-stretch gap-1.5 sm:gap-2 md:gap-3 rounded-[11px] bg-[#FFFFFF12] backdrop-blur-[12px] px-2 py-2 md:px-3 md:py-2.5">
                 {STATS.map((stat, index) => (
                   <React.Fragment key={stat.label}>
-                    <div className="flex flex-col items-center justify-center shrink-0 px-2 md:px-3">
-                      <p className="text-[12px] sm:text-[14px] md:text-[16px] font-semibold leading-none whitespace-nowrap">
+                    <div className="flex flex-col items-center justify-center shrink-0 gap-2 md:gap-2.5 px-0.5 sm:px-1">
+                      <p className="text-[16px] sm:text-[18px] md:text-[22px] font-semibold leading-none whitespace-nowrap">
                         {stat.value}
                       </p>
-                      <p className="text-[7px] sm:text-[8px] md:text-[9px] font-medium text-[#FFFFFFBF] mt-0.5 leading-tight">
+                      <p className="text-[10px] sm:text-[11px] md:text-[13px] font-medium text-[#FFFFFFBF] leading-snug text-center max-w-[72px] sm:max-w-none">
                         {stat.label}
                       </p>
                     </div>
@@ -165,31 +158,23 @@ const Hero = () => {
           <div className={`relative z-10 w-full flex flex-col flex-1 items-center min-h-0 ${HERO_GAP} pb-0`}>
             <AnimateFromInside className={`${HERO_ANIMATE_WRAP} relative top-6`}>
               <div className={`${HERO_INSET_X} relative z-10 flex flex-wrap items-center justify-center ${HERO_GAP} box-border`}>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[7px] border border-[#FFFFFF20] bg-[#00000059] backdrop-blur-md">
-                <img
-                  src={timeicon}
-                  alt=""
-                  className="w-4 h-4 md:w-[18px] md:h-[18px] shrink-0 opacity-90"
-                  aria-hidden
-                />
-                <p className="text-[11px] md:text-[13px] font-medium text-white/90 whitespace-nowrap">
-                  Next batch:{" "}
-                  <span className="text-white font-semibold">
-                    {batchDate ?? "Mon, 20 Apr • 8:00 PM IST"}
-                  </span>
-                </p>
-              </div>
-              <span
-                className="inline-flex items-center px-2.5 py-1 rounded-[7px] text-[11px] md:text-[13px] font-medium text-white whitespace-nowrap"
-                style={{
-                  background:
-                    "linear-gradient(101.35deg, rgba(80, 0, 0, 0.85) 1.29%, rgba(140, 20, 20, 0.9) 140.52%)",
-                  boxShadow: "0 0 16px rgba(180, 40, 40, 0.25)",
-                }}
-              >
-                Only <span className="text-[#FF8A8A] font-semibold mx-0.5">8 Seats</span>{" "}
-                Left
-              </span>
+                <span className="inline-flex items-center rounded-[7px] bg-[linear-gradient(170.51deg,#000000_-4.73%,#CD0000_234.56%)] px-2 py-0.5 text-[11px] md:text-[13px] font-medium text-white whitespace-nowrap">
+                  Only <span className="text-[#ff6b6b] font-semibold mx-0.5">8 Seats</span> Left
+                </span>
+                <div className="inline-flex items-center gap-1.5 rounded-[7px] bg-[#FFFFFF1A] backdrop-blur-[4px] px-2.5 py-1">
+                  <img
+                    src={timeicon}
+                    alt=""
+                    className="w-4 h-4 md:w-[18px] md:h-[18px] shrink-0 opacity-90"
+                    aria-hidden
+                  />
+                  <p className="text-[11px] md:text-[13px] font-medium text-white/90 whitespace-nowrap">
+                    Next batch:{" "}
+                    <span className="text-white font-semibold">
+                      {batchDate ?? "Mon, 20 Apr • 8:00 PM IST"}
+                    </span>
+                  </p>
+                </div>
               </div>
             </AnimateFromInside>
 

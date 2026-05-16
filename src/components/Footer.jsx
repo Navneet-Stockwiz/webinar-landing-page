@@ -13,11 +13,40 @@ import linkedin from "../assets/svg/linkedin.svg";
 import { AnimateFromInside } from "../common/ScrollFadeIn";
 import { useWebinar } from "../contexts/WebinarContext";
 import { useLanguage } from "../contexts/LanguageContext";
-import {
-  getFormattedWebinarDates,
-  getFormattedWebinarDatesDesktop,
-} from "../utils/dateFormatter";
+import { getFormattedWebinarDates } from "../utils/dateFormatter";
 import StrykeXPopupDialog from "./StrykeXPopupDialog";
+
+const CalendarIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="shrink-0"
+    aria-hidden
+  >
+    <path
+      d="M5 1.5V3M11 1.5V3M2.5 6H13.5M4 2.5H12C12.8284 2.5 13.5 3.17157 13.5 4V12.5C13.5 13.3284 12.8284 14 12 14H4C3.17157 14 2.5 13.3284 2.5 12.5V4C2.5 3.17157 3.17157 2.5 4 2.5Z"
+      stroke="white"
+      strokeWidth="1.25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const floatingBarSurface =
+  "rounded-2xl border border-[#FFFFFF3D] backdrop-blur-[61.6px] bg-[linear-gradient(91.44deg,rgba(63,114,255,0.12)_-4.99%,rgba(0,54,178,0.12)_52.99%,rgba(71,180,180,0.12)_112.17%)]";
+
+const registerButtonClassName =
+  "rounded-[11px] bg-white border border-white shadow-[0px_0px_29.8px_0px_#40B6FF] px-4 py-1.5 text-sm font-bold text-black";
+
+const urgencyBadgeClassName =
+  "rounded-[7px] bg-[linear-gradient(170.51deg,#000000_-4.73%,#CD0000_234.56%)] px-2 py-0.5 whitespace-nowrap";
+
+const dateBadgeClassName =
+  "flex items-center gap-1.5 rounded-[7px] border border-[#3E3E3E] bg-[#0000003D] backdrop-blur-[95px] px-2 py-0.5 whitespace-nowrap";
 
 const Footer = () => {
   const [isIphone, setIsIphone] = useState(false);
@@ -28,7 +57,6 @@ const Footer = () => {
 
   // Get formatted dates for both English and Hindi webinars
   const formattedDates = getFormattedWebinarDates(webinarData);
-  const formattedDatesDesktop = getFormattedWebinarDatesDesktop(webinarData);
 
   useEffect(() => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -444,91 +472,87 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div
-        className="font-inter mx-auto gap-3 justify-between md:flex hidden items-center px-28 py-4 w-screen fixed z-50 bottom-0"
-        style={{
-          background:
-            "linear-gradient(90.62deg, #007AFF 21.32%, #81F0FF 129.21%), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))",
-        }}
-      >
-        <p className="font-inter text-[#FFFFFF] font-medium text-[24px] leading-[20px]">
-          <span className="font-bold text-[40px] leading-[100%] ">Free</span>{" "}
-          <span className="text-[24px] leading-[20px] line-through">₹499</span>{" "}
-          Register Now (Limited Seats)
-        </p>
-        <div className="flex items-center justify-center md:w-[450px] gap-4">
-          <button
-            onClick={() => {
-              handleButtonClick("english");
-            }}
-            className="bg-white font-inter font-bold w-[278px] h-[82px] leading-[100%] text-[#3E57DA] flex-1 flex flex-col items-center justify-center gap-1 rounded-[10px] text-[14px] md:text-[20px] hover:scale-105 transition-all duration-300"
-          >
-            <span className="font-semibold text-[23px] leading-[100%] text-[#3E57DA]">
+      {/* Desktop floating CTA bar */}
+      <div className="fixed bottom-4 inset-x-0 z-50 hidden md:flex justify-center px-6 pointer-events-none">
+        <div
+          className={`pointer-events-auto font-inter flex w-full max-w-[1180px] items-center justify-between gap-4 px-5 py-3.5 shadow-[0_16px_48px_rgba(0,0,0,0.55)] ${floatingBarSurface}`}
+        >
+          <div className="flex min-w-0 flex-1 items-center gap-3">
+            <div className="flex shrink-0 items-baseline gap-2">
+              <span className="font-bold text-[36px] leading-none text-white">
+                Free
+              </span>
+              <span className="text-[20px] leading-none text-white/45 line-through">
+                ₹499
+              </span>
+            </div>
+            <div className={urgencyBadgeClassName}>
+              <span className="text-sm font-semibold text-white">
+                Hurry Up!
+              </span>
+              <span className="text-sm font-medium text-[#ff6b6b]">
+                {" "}
+                Limited Seats Only
+              </span>
+            </div>
+            <div className={dateBadgeClassName}>
+              <CalendarIcon />
+              <span className="text-sm font-medium text-white">
+                {formattedDates.english}
+              </span>
+            </div>
+          </div>
+
+          <div className="shrink-0">
+            <button
+              type="button"
+              onClick={() => handleButtonClick("english")}
+              className={registerButtonClassName}
+            >
               Register Now
-            </span>
-            <span className="font-medium text-[22px] leading-[120%] text-black">
-              ({formattedDatesDesktop.english})
-            </span>
-          </button>
-          <button
-            onClick={() => {
-              handleButtonClick("hindi");
-            }}
-            className="hidden bg-white  font-inter  font-bold leading-[100%] text-[#3E57DA] flex-1 w-[278px] h-[82px] flex-col items-center justify-center gap-1 rounded-[10px] text-[14px] md:text-[20px] hover:scale-105 transition-all duration-300"
-          >
-            <span className="font-semibold text-[23px] leading-[100%] text-[#3E57DA]">
-              Hindi
-            </span>
-            <span className="font-medium text-[22px] leading-[120%] text-black">
-              ({formattedDatesDesktop.hindi})
-            </span>
-          </button>
+            </button>
+          </div>
         </div>
       </div>
-      <div
-        className="font-inter mx-auto justify-between md:hidden px-4 flex flex-col items-center md:px-28 py-2 w-screen fixed z-50 bottom-0 gap-4"
-        style={{
-          background:
-            "linear-gradient(92.5deg, #0073F0 46.71%, #81F0FF 120.89%), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))",
-        }}
-      >
-        <div className="flex items-center justify-center gap-2 text-white w-full">
-          <div className="flex items-center justify-center gap-[6px]">
-            <span className="font-bold font-inter text-[29px] leading-[100%]">
-              Free
-            </span>
-            <span className="font-medium font-inter text-[18px] leading-[100%] line-through decoration-white decoration-1 flex items-center">
-              ₹499
-            </span>
-          </div>
-          <div className="flex justify-between items-center">
-            <button
-              onClick={() => {
-                handleButtonClick("english");
-              }}
-              className="flex flex-col justify-center items-center py-2 px-4 bg-white rounded-[12px] cursor-pointer w-auto hover:bg-gray-50 active:bg-gray-100 transition-all duration-200  touch-manipulation"
-            >
-              <span className="font-semibold text-[18px] leading-[170%] text-[#0162CC]">
-                Register Now
+
+      {/* Mobile floating CTA bar */}
+      <div className="fixed bottom-4 inset-x-0 z-50 flex justify-center px-3 md:hidden pointer-events-none">
+        <div
+          className={`pointer-events-auto font-inter flex w-full max-w-lg items-center justify-between gap-2 px-3 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.5)] ${floatingBarSurface}`}
+        >
+          <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
+            <div className="flex shrink-0 items-baseline gap-1.5">
+              <span className="font-bold text-[24px] leading-none text-white">
+                Free
               </span>
-              <div className="font-semibold text-[13px] leading-[170%] text-center text-black">
-                ({formattedDates.english})
-              </div>
-            </button>
-            <button
-              onClick={() => {
-                handleButtonClick("hindi");
-              }}
-              className="hidden flex-col justify-center items-center gap-1 bg-white p-3 sm:p-4 rounded-[12px] cursor-pointer w-full hover:bg-gray-50 active:bg-gray-100 transition-all duration-200 min-h-[60px] sm:min-h-[70px] touch-manipulation"
-            >
-              <span className="font-semibold text-[16px] sm:text-[18px] leading-[100%] text-[#3E57DA]">
-                Hindi
+              <span className="text-sm leading-none text-white/45 line-through">
+                ₹499
               </span>
-              <div className="font-semibold text-[13px] sm:text-[10px] leading-[170%] text-center">
-                ({formattedDates.hindi})
-              </div>
-            </button>
+            </div>
+            <div className={urgencyBadgeClassName}>
+              <span className="text-xs font-semibold text-white">
+                Hurry Up!
+              </span>
+              <span className="text-xs font-medium text-[#ff6b6b]">
+                {" "}
+                Limited Seats Only
+              </span>
+            </div>
+            <div className={dateBadgeClassName}>
+              <CalendarIcon />
+              <span className="text-xs font-medium text-white">
+                {formattedDates.english}
+              </span>
+            </div>
           </div>
+
+          <button
+            type="button"
+            onClick={() => handleButtonClick("english")}
+            className={`${registerButtonClassName} shrink-0 touch-manipulation`}
+          >
+            Register Now
+          </button>
         </div>
       </div>
 

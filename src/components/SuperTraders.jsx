@@ -182,7 +182,7 @@ const SuperTraders = () => {
   }, [isPaused, controls, reviews.length, isMobile]);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6  bg-[#010611] w-full h-auto md:pt-28 pt-20 md:pb-8 relative overflow-hidden">
+    <div className="flex flex-col items-center justify-center gap-6 bg-[#010611] w-full h-auto pt-8 md:pt-12 pb-8 relative overflow-hidden">
       <div className="flex justify-center w-full md:px-80 3xl:px-[450px] px-4">
         <AnimateFromInside>
           <h2 className="font-semibold text-white md:text-[56px] text-[32px] md:leading-[74px] leading-[36px] font-degular text-center">
