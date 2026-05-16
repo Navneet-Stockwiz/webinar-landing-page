@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://algo.stockwiz.in/</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Core Pages -->
+  <url>
+    <loc>https://algo.stockwiz.in/algos</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/pricing</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/features</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/how-it-works</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Auth / Onboarding (Public) -->
+  <url>
+    <loc>https://algo.stockwiz.in/signin</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/getstarted</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/kyc</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Backtest Pages -->
+  <url>
+    <loc>https://algo.stockwiz.in/backtest</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/backtest/results</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/backtest/liveperformance</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/backtest/contact</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Payment -->
+  <url>
+    <loc>https://algo.stockwiz.in/pay</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Content -->
+  <url>
+    <loc>https://algo.stockwiz.in/blog</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/faq</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Trust / Legal -->
+  <url>
+    <loc>https://algo.stockwiz.in/disclaimer</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/privacy-policy</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/terms-and-conditions</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/refund-policy</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://algo.stockwiz.in/contact</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>
