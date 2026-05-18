@@ -73,16 +73,15 @@ const WebinarHighlights = () => {
                 <div className="flex flex-col md:gap-4 gap-3 items-center md:items-start">
                   <p className="font-semibold text-[24px] md:text-[44px] leading-[28px] md:leading-[54px] font-degular">
                     <span className="text-[#FFFFFF99] font-normal">
-                      Tools That Put You in the <br />
-                      {"  "}
+                      Tools That Help You Trade Like A{" "}
                     </span>
-                    Top 1%{" "}
+                    Professional Trader
                   </p>
                   <p className="font-medium font-sans text-[12px] md:text-[24px] md:leading-[36px] leading-[18px] tracking-normal text-[#FFFFFFBF] max-w-[600px]">
                     Forget staring at screens all day. With AI tools like
                     TradingView, StrykeX, and ChatGPT, you can trade smarter,
-                    faster, and fully automated — no coding, no clicking, 5X
-                    better results.
+                    faster, and algo trading — no coding no clicking, systematic
+                    trading.
                   </p>
                 </div>
               </div>

@@ -3,17 +3,17 @@ import { Link, useLocation } from "react-router-dom";
 import mainlogo from "../assets/svg/mainlogo.svg";
 import whatsappIcon from "../assets/svg/whatsappiconnew.svg";
 import { useLanguage } from "../contexts/LanguageContext";
-import { useWebinar } from "../contexts/WebinarContext";
 import {
   isLandingPath,
   useLandingVariant,
   LANDING_PATHS,
 } from "../contexts/LandingVariantContext.jsx";
-import { openPaidAlphatradingWebinar } from "../utils/webinarUrls";
 import StrykeXPopupDialog from "./StrykeXPopupDialog";
+import StrykexPaymentDialog from "./StrykexPaymentDialog";
 
 const Header = () => {
   const [showDialog, setShowDialog] = useState(false);
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
   const [isPinned, setIsPinned] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -21,8 +21,7 @@ const Header = () => {
   const headerRef = useRef(null);
   const location = useLocation();
   const { selectedLanguage, selectLanguage, clearLanguage } = useLanguage();
-  const { webinarData } = useWebinar();
-  const { isPaid, paymentSource, channel } = useLandingVariant();
+  const { isPaid, paymentSource } = useLandingVariant();
 
   const whatsappLeadUrl = useMemo(() => {
     const text = `Hello,\nI just visited your website, I am interested in joining the webinar. Please share the webinar joining details.\nStockwiz\n${paymentSource}`;
@@ -67,12 +66,17 @@ const Header = () => {
   };
 
   const handleSignUp = () => {
+    selectLanguage("english");
     if (isPaid) {
-      openPaidAlphatradingWebinar(webinarData, "english", channel);
+      setShowPaymentDialog(true);
       return;
     }
-    selectLanguage("english");
     setShowDialog(true);
+  };
+
+  const handlePaymentDialogClose = () => {
+    setShowPaymentDialog(false);
+    clearLanguage();
   };
 
   return (
@@ -163,6 +167,14 @@ const Header = () => {
               onClose={handleDialogClose}
               onSuccess={handleDialogSuccess}
               selectedLanguage={selectedLanguage}
+            />
+          )}
+
+          {isPaid && (
+            <StrykexPaymentDialog
+              open={showPaymentDialog}
+              selectedLanguage={selectedLanguage}
+              handleClose={handlePaymentDialogClose}
             />
           )}
         </header>
