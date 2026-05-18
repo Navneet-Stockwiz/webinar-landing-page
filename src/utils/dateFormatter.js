@@ -111,26 +111,35 @@ export const formatWebinarBatchDate = (dateTimeString) => {
  * Gets the formatted dates for both English and Hindi webinars
  * Returns an object with consistent formatting
  */
-export const getFormattedWebinarDates = (webinarData) => {
-  const englishDate = webinarData?.data?.strykex_free_english_date_time;
-  const hindiDate = webinarData?.data?.strykex_free_hindi_date_time;
+export const getFormattedWebinarDates = (webinarData, isPaid = false) => {
+  const d = webinarData?.data;
+  const englishDate = isPaid
+    ? d?.strykex_english_date_time
+    : d?.strykex_free_english_date_time;
+  const hindiDate = isPaid
+    ? d?.strykex_hindi_date_time
+    : d?.strykex_free_hindi_date_time;
 
   return {
     english: formatWebinarDateTime(englishDate),
-    hindi: formatWebinarDateTime(hindiDate)
+    hindi: formatWebinarDateTime(hindiDate),
   };
 };
 
 /**
  * Gets the formatted dates for desktop version with full month names
- * Returns an object with desktop-specific formatting
  */
-export const getFormattedWebinarDatesDesktop = (webinarData) => {
-  const englishDate = webinarData?.data?.strykex_free_english_date_time;
-  const hindiDate = webinarData?.data?.strykex_free_hindi_date_time;
+export const getFormattedWebinarDatesDesktop = (webinarData, isPaid = false) => {
+  const d = webinarData?.data;
+  const englishDate = isPaid
+    ? d?.strykex_english_date_time
+    : d?.strykex_free_english_date_time;
+  const hindiDate = isPaid
+    ? d?.strykex_hindi_date_time
+    : d?.strykex_free_hindi_date_time;
 
   return {
     english: formatWebinarDateTimeDesktop(englishDate),
-    hindi: formatWebinarDateTimeDesktop(hindiDate)
+    hindi: formatWebinarDateTimeDesktop(hindiDate),
   };
 };

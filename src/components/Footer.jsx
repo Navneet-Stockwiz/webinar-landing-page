@@ -15,6 +15,8 @@ import { useWebinar } from "../contexts/WebinarContext";
 import { useLanguage } from "../contexts/LanguageContext";
 import { getFormattedWebinarDates } from "../utils/dateFormatter";
 import StrykeXPopupDialog from "./StrykeXPopupDialog";
+import StrykexPaymentDialog from "./StrykexPaymentDialog";
+import { useLandingVariant } from "../contexts/LandingVariantContext.jsx";
 
 const CalendarIcon = () => (
   <svg
@@ -51,12 +53,13 @@ const dateBadgeClassName =
 const Footer = () => {
   const [isIphone, setIsIphone] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
   const { webinarData } = useWebinar();
   const { selectedLanguage, selectLanguage, clearLanguage } = useLanguage();
+  const { isPaid } = useLandingVariant();
 
-  // Get formatted dates for both English and Hindi webinars
-  const formattedDates = getFormattedWebinarDates(webinarData);
+  const formattedDates = getFormattedWebinarDates(webinarData, isPaid);
 
   useEffect(() => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -66,6 +69,11 @@ const Footer = () => {
   }, []);
 
   const handleButtonClick = (language) => {
+    if (isPaid) {
+      selectLanguage(language);
+      setShowPaymentDialog(true);
+      return;
+    }
     selectLanguage(language);
     setShowDialog(true);
   };
@@ -73,6 +81,11 @@ const Footer = () => {
   const handleDialogClose = () => {
     setShowDialog(false);
     setPendingAction(null);
+    clearLanguage();
+  };
+
+  const handlePaymentDialogClose = () => {
+    setShowPaymentDialog(false);
     clearLanguage();
   };
 
@@ -479,12 +492,25 @@ const Footer = () => {
         >
           <div className="flex min-w-0 flex-1 items-center gap-3">
             <div className="flex shrink-0 items-baseline gap-2">
-              <span className="font-bold text-[36px] leading-none text-white">
-                Free
-              </span>
-              <span className="text-[20px] leading-none text-white/45 line-through">
-                ₹499
-              </span>
+              {isPaid ? (
+                <>
+                  <span className="font-bold text-[36px] leading-none text-white inline-flex items-baseline gap-0.5">
+                    <span className="text-[28px]">₹</span>199
+                  </span>
+                  <span className="text-[20px] leading-none text-white/45 line-through">
+                    ₹499
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="font-bold text-[36px] leading-none text-white">
+                    Free
+                  </span>
+                  <span className="text-[20px] leading-none text-white/45 line-through">
+                    ₹499
+                  </span>
+                </>
+              )}
             </div>
             <div className={urgencyBadgeClassName}>
               <span className="text-sm font-semibold text-white">
@@ -522,12 +548,25 @@ const Footer = () => {
         >
           <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
             <div className="flex shrink-0 items-baseline gap-1.5">
-              <span className="font-bold text-[24px] leading-none text-white">
-                Free
-              </span>
-              <span className="text-sm leading-none text-white/45 line-through">
-                ₹499
-              </span>
+              {isPaid ? (
+                <>
+                  <span className="font-bold text-[24px] leading-none text-white inline-flex items-baseline gap-0.5">
+                    <span className="text-[18px]">₹</span>199
+                  </span>
+                  <span className="text-sm leading-none text-white/45 line-through">
+                    ₹499
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="font-bold text-[24px] leading-none text-white">
+                    Free
+                  </span>
+                  <span className="text-sm leading-none text-white/45 line-through">
+                    ₹499
+                  </span>
+                </>
+              )}
             </div>
             <div className={urgencyBadgeClassName}>
               <span className="text-xs font-semibold text-white">
@@ -556,13 +595,22 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Dialog Component */}
-      <StrykeXPopupDialog
-        open={showDialog}
-        onClose={handleDialogClose}
-        onSuccess={handleDialogSuccess}
-        selectedLanguage={selectedLanguage}
-      />
+      {!isPaid && (
+        <StrykeXPopupDialog
+          open={showDialog}
+          onClose={handleDialogClose}
+          onSuccess={handleDialogSuccess}
+          selectedLanguage={selectedLanguage}
+        />
+      )}
+
+      {isPaid && (
+        <StrykexPaymentDialog
+          open={showPaymentDialog}
+          selectedLanguage={selectedLanguage}
+          handleClose={handlePaymentDialogClose}
+        />
+      )}
     </footer>
   );
 };

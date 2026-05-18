@@ -17,8 +17,12 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import strykexblack from "../assets/svg/mainlogoblack.svg";
 import safeicon from "../assets/svg/safeicon.svg";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useWebinar } from "../contexts/WebinarContext";
+import { useLandingVariant } from "../contexts/LandingVariantContext.jsx";
+import { createRegistration, resolveAgency } from "../api/api";
+import { webinarNameFromVariant } from "../utils/webinarGtm.js";
+import { getOrCreateVisitorUid } from "../utils/visitorUid.js";
 
 const countryCodes = [
   { code: "+91", country: "India", flag: "🇮🇳" },
@@ -120,9 +124,39 @@ const countryCodes = [
   { code: "+994", country: "Azerbaijan", flag: "🇦🇿" },
 ];
 
+/** Query keys aligned with landing URL tracking (utm_*, ad_name, gclid). */
+const WEBINAR_LEAD_TRACKING_PARAMS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_ad_id",
+  "utm_adgroup",
+  "utm_adgroup_id",
+  "utm_campaign_id",
+  "utm_device",
+  "utm_network",
+  "utm_keyword",
+  "utm_matchtype",
+  "utm_content",
+  "ad_name",
+  "gclid",
+];
+
+function getWebinarLeadTrackingFromSearchParams(searchParams) {
+  const out = {};
+  for (const key of WEBINAR_LEAD_TRACKING_PARAMS) {
+    const v = searchParams.get(key);
+    if (v != null && v !== "") {
+      out[key] = v;
+    }
+  }
+  return out;
+}
+
 const StrykeXPopupDialog = ({ open, onClose, onSuccess, selectedLanguage }) => {
   const [searchParams] = useSearchParams();
-  const gclid = searchParams.get("gclid") || null;
+  const navigate = useNavigate();
+  const { paymentSource, isPaid, channel } = useLandingVariant();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -203,64 +237,76 @@ const StrykeXPopupDialog = ({ open, onClose, onSuccess, selectedLanguage }) => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://api.stockwiz.in/api/v2/strykex/createStrykexWebinarLeads",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            phone: fullPhoneNumber,
-            source: "https://alpha.stockwiz.in",
-            language: selectedLanguage,
-            state: state,
-            ...(gclid && { gclid }),
-          }),
-        }
-      );
+      const source = paymentSource || `${window.location.origin}${window.location.pathname}`;
+      let agencyId;
+      try {
+        const resolveResponse = await resolveAgency(source);
+        agencyId = resolveResponse?.data?.data?.agency_id;
+      } catch {
+        // Keep registration flow non-blocking if agency mapping fails.
+      }
 
-      const data = await response.json();
+      const visitorUid = getOrCreateVisitorUid();
+      const zoomWebinarId = webinarData?.data?.zoom_webinar_id;
+      const { data } = await createRegistration({
+        ...getWebinarLeadTrackingFromSearchParams(searchParams),
+        user_id: visitorUid,
+        uid: visitorUid,
+        name,
+        email,
+        phone: fullPhoneNumber,
+        source,
+        agency_id: agencyId,
+        subscription_type: isPaid ? "PAID" : "FREE",
+        language: selectedLanguage,
+        state: state,
+        webinar_type: isPaid ? "PAID" : "FREE",
+        event: isPaid ? "webinar_purchase_paid" : undefined,
+        webinar_name: webinarNameFromVariant(channel, isPaid),
+        ...(!isPaid && zoomWebinarId ? { id: zoomWebinarId } : {}),
+      });
 
-      if (data.status) {
-        if (typeof window.pushECFormSubmit === "function") {
-          window.pushECFormSubmit(email, fullPhoneNumber);
-        }
-        setSnackbar({
-          open: true,
-          message: "Details submitted successfully!",
-          severity: "success",
+      if (typeof window.pushECFormSubmit === "function") {
+        window.pushECFormSubmit(email, fullPhoneNumber);
+      }
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "form_submit",
+          webinar_name: window.ACTIVE_WEBINAR?.topic ?? null,
+          webinar_type: window.ACTIVE_WEBINAR?.webinar_type ?? null,
         });
+      }
+      setSnackbar({
+        open: true,
+        message: data?.message || "Details submitted successfully!",
+        severity: "success",
+      });
 
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          countryCode: "+91",
-          state: "",
-        });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        countryCode: "+91",
+        state: "",
+      });
 
-        onSuccess();
-        onClose();
+      onSuccess();
+      onClose();
+      setTimeout(() => {
+        if (!isPaid) {
+          navigate(channel === "meta" ? "/m-thankyou" : "/g-thankyou");
+          return;
+        }
         const isIOS =
           /iPad|iPhone|iPod/.test(navigator.userAgent) ||
           (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-        setTimeout(() => {
-          if (isIOS) {
-            window.location.href = webinarData.data.agadh_thankyou;
-          } else {
-            window.open(webinarData.data.agadh_thankyou, "_blank");
-          }
-        }, 100);
-      } else {
-        setSnackbar({
-          open: true,
-          message: data.message || "Failed to submit details",
-          severity: "error",
-        });
-      }
+        if (isIOS) {
+          window.location.href = webinarData.data.agadh_thankyou;
+        } else {
+          window.open(webinarData.data.agadh_thankyou, "_blank");
+        }
+      }, 100);
     } catch (err) {
       setSnackbar({
         open: true,
