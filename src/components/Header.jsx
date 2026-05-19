@@ -103,7 +103,7 @@ const Header = () => {
               : ""
           }`}
         >
-          <nav className="flex items-center justify-between gap-4 w-full py-0.5 px-4 md:px-80 3xl:px-[450px]">
+          <nav className="flex items-center justify-between gap-4 w-full max-w-[1200px] mx-auto py-0.5 px-4 sm:px-6 lg:px-8">
             <Link
               to={
                 isLandingPath(location.pathname)

@@ -37,9 +37,9 @@ const CTAButton = ({ compact = false }) => {
 
   return (
     <div
-      className={`flex flex-col items-center gap-4 ${compact ? "mt-0" : "md:flex-row md:items-start md:gap-8 mt-0 md:mt-8"}`}
+      className={`flex flex-col items-center gap-4 ${compact ? "mt-0 w-full" : "md:flex-row md:items-start md:gap-8 mt-0 md:mt-8"}`}
     >
-      <div className="flex flex-col items-center">
+      <div className={`flex flex-col items-center ${compact ? "w-full" : ""}`}>
         <motion.div
           className="relative"
           whileHover={{ scale: 1.01 }}
@@ -81,7 +81,11 @@ const CTAButton = ({ compact = false }) => {
           />
           <motion.button
             onClick={() => handleButtonClick("english")}
-            className="relative font-degular bg-white border-[1px] border-[#000000] text-black text-[18px] md:text-[20px] leading-[21px] md:leading-[22px] font-semibold rounded-full px-3 py-1.5 md:px-4 md:py-2 md:pr-2 flex items-center justify-center md:justify-start gap-2 md:gap-2.5 transition-all w-[345px] md:w-auto"
+            className={`relative font-degular bg-white border-[1px] border-[#000000] text-black font-semibold rounded-full flex items-center transition-all ${
+              compact
+                ? "w-full text-[15px] sm:text-[16px] leading-[20px] px-4 py-2.5 pr-2 justify-between gap-2"
+                : "text-[18px] md:text-[20px] leading-[21px] md:leading-[22px] px-3 py-1.5 md:px-4 md:py-2 md:pr-2 justify-center md:justify-start gap-2 md:gap-2.5 w-[345px] md:w-auto"
+            }`}
             whileHover={{
               scale: 1.02,
               boxShadow: "0 8px 32px rgba(76, 115, 255, 0.2)",
@@ -110,12 +114,16 @@ const CTAButton = ({ compact = false }) => {
               </>
             )}
             <motion.div
-              className="hidden md:flex items-center justify-center"
+              className={`flex items-center justify-center shrink-0 ${compact ? "" : "hidden md:flex"}`}
               whileHover={{ x: 4 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="bg-black h-[36px] w-[36px] md:h-[40px] md:w-[40px] rounded-full flex items-center justify-center shrink-0">
-                <img src={buttonarrow} alt="arrow" />
+              <div
+                className={`bg-black rounded-full flex items-center justify-center ${
+                  compact ? "h-[32px] w-[32px]" : "h-[36px] w-[36px] md:h-[40px] md:w-[40px]"
+                }`}
+              >
+                <img src={buttonarrow} alt="arrow" className={compact ? "w-3.5 h-3.5" : ""} />
               </div>
             </motion.div>
           </motion.button>
